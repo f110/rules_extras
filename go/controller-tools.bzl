@@ -28,11 +28,12 @@ _controller_gen = rule(
         "dir": attr.string(),
         "extra_args": attr.string_list(),
         "_template": attr.label(
-            default = "//build/rules/go:controller-gen.bash",
+            default = "//go:controller-gen.bash",
             allow_single_file = True,
         ),
         "_bin": attr.label(
-            default = "//third_party/controller-tools/cmd/controller-gen",
+            # TODO: Add dependency
+#            default = "//third_party/controller-tools/cmd/controller-gen",
             executable = True,
             cfg = "host",
         ),

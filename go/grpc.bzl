@@ -28,7 +28,7 @@ _vendor_grpc_source = rule(
         "dir": attr.string(),
         "src": attr.label(),
         "_template": attr.label(
-            default = "//build/rules/go:move-into-workspace.bash",
+            default = "//go:move-into-workspace.bash",
             allow_single_file = True,
         ),
     },
