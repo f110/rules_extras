@@ -145,7 +145,7 @@ _deepcopy_gen = go_rule(
             default = "zz_generated.deepcopy",
         ),
         "_deepcopy_gen": attr.label(
-            default = "@io_kubernetes_code_generator//cmd/deepcopy-gen",
+            default = "@io_k8s_code_generator//cmd/deepcopy-gen",
             executable = True,
             cfg = "host",
         ),
@@ -194,7 +194,7 @@ _client_gen = go_rule(
         ),
         "clientpackage": attr.string(),
         "_client_gen": attr.label(
-            default = "@io_kubernetes_code_generator//cmd/client-gen",
+            default = "@io_k8s_code_generator//cmd/client-gen",
             executable = True,
             cfg = "host",
         ),
@@ -239,7 +239,7 @@ _lister_gen = go_rule(
     attrs = dict({
         "listerpackage": attr.string(),
         "_lister_gen": attr.label(
-            default = "@io_kubernetes_code_generator//cmd/lister-gen",
+            default = "@io_k8s_code_generator//cmd/lister-gen",
             executable = True,
             cfg = "host",
         ),
@@ -289,7 +289,7 @@ _informer_gen = go_rule(
         "clientsetname": attr.string(default = _DEFAULT_CLIENTSET_NAME),
         "listerpackage": attr.string(),
         "_informer_gen": attr.label(
-            default = "@io_kubernetes_code_generator//cmd/informer-gen",
+            default = "@io_k8s_code_generator//cmd/informer-gen",
             executable = True,
             cfg = "host",
         ),
