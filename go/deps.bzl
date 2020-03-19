@@ -1,4 +1,5 @@
 load("@bazel_gazelle//:deps.bzl", "go_repository")
+load(":code-generator-deps.bzl", "go_repositories")
 
 def go_extras_dependencies():
     go_repository(
@@ -9,3 +10,5 @@ def go_extras_dependencies():
         type = "zip",
         build_external = "vendored",
     )
+
+    go_repositories()
