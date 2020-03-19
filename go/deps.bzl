@@ -8,7 +8,6 @@ def go_extras_dependencies():
         urls = ["https://github.com/kubernetes/code-generator/archive/v0.17.4.zip"],
         strip_prefix = "code-generator-0.17.4",
         type = "zip",
-        build_external = "vendored",
     )
 
     go_repositories()
