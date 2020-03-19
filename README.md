@@ -39,6 +39,8 @@ load("@dev_f110_rules_extras//go:deps.bzl", "go_extras_dependencies")
 go_extras_dependencies()
 ```
 
+BUILD.bazel:
+
 ```starlark
 load("@dev_f110_rules_extras//go:gen.bzl", "k8s_code_generator")
 
@@ -53,6 +55,8 @@ k8s_code_generator(
     listerpackage = "github.com/f110/rules_extras/pkg/listers",
 )
 ```
+
+This rule only works in a vendored mode.
 
 # Author
 
