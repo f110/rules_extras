@@ -169,7 +169,9 @@ def _client_gen_impl(ctx):
     target_dir = ctx.attr.clientpackage[len(module_name) + 1:]
 
     args = []
-    args.append("--input-dirs=%s" % ",".join(_input_dir_args(providers)))
+    args.append("--input=%s" % ",".join(_input_dir_args(providers)))
+    args.append("--input-base")
+    args.append("")
     args.append("--go-header-file=%s" % ctx.file.header.path)
     args.append("--clientset-name=%s" % ctx.attr.clientsetname)
     args.append("--output-package=%s" % ctx.attr.clientpackage)
