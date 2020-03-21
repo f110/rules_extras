@@ -11,6 +11,7 @@ _COMMON_ATTRS = {
     "header": attr.label(
         allow_single_file = True,
     ),
+    "no_gazelle": attr.bool(default = False),
     "debug": attr.bool(default = False),
     "_template": attr.label(
         default = "@dev_f110_rules_extras//go:code-generator.bash",
@@ -35,6 +36,10 @@ def _code_generator_impl(ctx, _bin, srcs, args, target_dirs = [], generated_dirs
     if ctx.attr.debug:
         args.append("-v=5")
 
+    no_gazelle = "false"
+    if ctx.attr.no_gazelle:
+        no_gazelle = "true"
+
     substitutions = {
         "@@GAZELLE@@": shell.quote(ctx.executable._gazelle.short_path),
         "@@BIN@@": shell.quote(_bin.short_path),
@@ -45,6 +50,7 @@ def _code_generator_impl(ctx, _bin, srcs, args, target_dirs = [], generated_dirs
         "@@SRC_PACKAGE_DIRS@@": shell.array_literal(package_dirs),
         "@@SRC_DIRS@@": shell.array_literal(src_dirs),
         "@@GO_ROOT@@": shell.quote(paths.dirname(go.sdk.root_file.path)),
+        "@@NO_GAZELLE@@": shell.quote(no_gazelle),
     }
     out = ctx.actions.declare_file(ctx.label.name + ".sh")
     ctx.actions.expand_template(

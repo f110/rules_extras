@@ -5,6 +5,7 @@ set -x
 BIN=@@BIN@@
 GAZELLE_PATH=@@GAZELLE@@
 ARGS=@@ARGS@@
+NO_GAZELLE=@@NO_GAZELLE@@
 
 TARGET_DIRS=@@TARGET_DIRS@@
 FILENAME=@@FILENAME@@
@@ -43,6 +44,9 @@ if [ -n "$FILENAME" ]; then
 else
   mkdir -p $(dirname "${TARGET_DIRS[0]}")
   cp -rT $RUNFILE_DIR/${GENERATED_DIRS[0]} ${TARGET_DIRS[0]}
-  "$GAZELLE" update "${TARGET_DIRS[0]}"
+
+  if [ "$NO_GAZELLE" = "false" ]; then
+    "$GAZELLE" update "${TARGET_DIRS[0]}"
+  fi
 fi
 
