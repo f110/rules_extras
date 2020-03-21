@@ -33,8 +33,10 @@ def _code_generator_impl(ctx, _bin, srcs, args, target_dirs = [], generated_dirs
         package_dirs.append(v[GoLibrary].importpath)
         src_dirs.append(v[GoSource].srcs[0].dirname)
 
+    debug = "false"
     if ctx.attr.debug:
         args.append("-v=5")
+        debug = "true"
 
     no_gazelle = "false"
     if ctx.attr.no_gazelle:
@@ -51,6 +53,7 @@ def _code_generator_impl(ctx, _bin, srcs, args, target_dirs = [], generated_dirs
         "@@SRC_DIRS@@": shell.array_literal(src_dirs),
         "@@GO_ROOT@@": shell.quote(paths.dirname(go.sdk.root_file.path)),
         "@@NO_GAZELLE@@": shell.quote(no_gazelle),
+        "@@DEBUG@@": shell.quote(debug),
     }
     out = ctx.actions.declare_file(ctx.label.name + ".sh")
     ctx.actions.expand_template(

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
+if [ "@@DEBUG@@" = "true" ]; then
 set -x
+fi
 
 BIN=@@BIN@@
 GAZELLE_PATH=@@GAZELLE@@
