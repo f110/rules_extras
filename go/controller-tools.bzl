@@ -32,8 +32,7 @@ _controller_gen = rule(
             allow_single_file = True,
         ),
         "_bin": attr.label(
-            # TODO: Add dependency
-#            default = "//third_party/controller-tools/cmd/controller-gen",
+            default = "//third_party/controller-tools-v0.2.4/cmd/controller-gen",
             executable = True,
             cfg = "host",
         ),
