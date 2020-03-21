@@ -170,6 +170,8 @@ def _client_gen_impl(ctx):
 
     module_name = ""
     for v in providers:
+        if v[GoSource].srcs[0].dirname.startswith("vendor/"):
+            continue
         x = _find_module_name(v[GoLibrary].importpath, v[GoSource].srcs[0].dirname)
         if module_name != "" and module_name != x:
             fail("Could not detect module name")
@@ -221,6 +223,8 @@ def _lister_gen_impl(ctx):
 
     module_name = ""
     for v in providers:
+        if v[GoSource].srcs[0].dirname.startswith("vendor/"):
+            continue
         x = _find_module_name(v[GoLibrary].importpath, v[GoSource].srcs[0].dirname)
         if module_name != "" and module_name != x:
             fail("Could not detect module name")
@@ -266,6 +270,8 @@ def _informer_gen_impl(ctx):
 
     module_name = ""
     for v in providers:
+        if v[GoSource].srcs[0].dirname.startswith("vendor/"):
+            continue
         x = _find_module_name(v[GoLibrary].importpath, v[GoSource].srcs[0].dirname)
         if module_name != "" and module_name != x:
             fail("Could not detect module name")
