@@ -382,11 +382,11 @@ _crd_gen = rule(
         "srcs": attr.label_list(),
         "debug": attr.bool(default = False),
         "_template": attr.label(
-            default = "//build/rules/go:controller-gen.bash",
+            default = "//go:controller-gen.bash",
             allow_single_file = True,
         ),
         "_bin": attr.label(
-            default = "//third_party/controller-tools/cmd/controller-gen",
+            default = "//third_party/controller-tools-v0.2.4/cmd/controller-gen",
             executable = True,
             cfg = "host",
         ),
