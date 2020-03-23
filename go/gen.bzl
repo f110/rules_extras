@@ -353,6 +353,7 @@ def _crd_gen_impl(ctx):
     substitutions = {
         "@@DEBUG@@": shell.quote(debug),
         "@@BIN@@": shell.quote(ctx.executable._bin.short_path),
+        "@@GENERATED_DIR@@": shell.quote("crd"),
         "@@OUTPUT_DIR@@": shell.quote(ctx.attr.dir),
         "@@ARGS@@": shell.array_literal(args),
         "@@SRC_PACKAGE_NAMES@@": shell.array_literal(import_paths),
@@ -434,3 +435,88 @@ def k8s_code_generator(name, **kwargs):
     _lister_gen(name = name + ".lister", **lister_args)
     _informer_gen(name = name + ".informer", **informer_args)
     _crd_gen(name = name + ".crd", **crd_args)
+
+def _rbac_gen_impl(ctx):
+    go_srcs = ctx.attr.srcs
+
+    srcs = []
+    import_paths = []
+    src_dirs = {}
+    for v in go_srcs:
+        if v[GoLibrary].label.package.startswith("vendor/"):
+            continue
+        srcs += v[GoSource].srcs
+        import_paths.append(v[GoLibrary].importmap)
+        src_dirs[v[GoSource].srcs[0].dirname.split("/")[0]] = True
+
+    dep_files = _flatten_deps(go_srcs)
+    for x in dep_files:
+        if x.path.startswith("vendor/"):
+            continue
+        src_dirs[paths.dirname(x.path).split("/")[0]] = True
+
+    module_name = ""
+    for v in go_srcs:
+        if v[GoSource].srcs[0].dirname.startswith("vendor/"):
+            continue
+        x = _find_module_name(v[GoLibrary].importpath, v[GoSource].srcs[0].dirname)
+        if module_name != "" and module_name != x:
+            fail("Could not detect module name")
+        else:
+            module_name = x
+
+    args = [
+        ("rbac:roleName=%s" % ctx.attr.rolename),
+    ]
+    for v in import_paths:
+        args.append("paths=%s" % v)
+    args.append("output:rbac:dir=rbac")
+
+    debug = "false"
+    if ctx.attr.debug:
+        debug = "true"
+
+    substitutions = {
+        "@@DEBUG@@": shell.quote(debug),
+        "@@BIN@@": shell.quote(ctx.executable._bin.short_path),
+        "@@GENERATED_DIR@@": shell.quote("rbac"),
+        "@@OUTPUT_DIR@@": shell.quote(ctx.attr.dir),
+        "@@ARGS@@": shell.array_literal(args),
+        "@@SRC_PACKAGE_NAMES@@": shell.array_literal(import_paths),
+        "@@SRC_DIRS@@": shell.array_literal([x for x in src_dirs.keys()]),
+        "@@MODULE@@": shell.quote(module_name),
+    }
+    out = ctx.actions.declare_file(ctx.label.name + ".sh")
+    ctx.actions.expand_template(
+        template = ctx.file._template,
+        output = out,
+        substitutions = substitutions,
+        is_executable = True,
+    )
+    runfiles = ctx.runfiles(files = [ctx.executable._bin] + srcs, transitive_files = depset(dep_files))
+    return [
+        DefaultInfo(
+            runfiles = runfiles,
+            executable = out,
+        ),
+    ]
+
+rbac_gen = rule(
+    implementation = _rbac_gen_impl,
+    executable = True,
+    attrs = {
+        "dir": attr.string(),
+        "srcs": attr.label_list(),
+        "rolename": attr.string(),
+        "debug": attr.bool(default = False),
+        "_template": attr.label(
+            default = "//go:controller-gen.bash",
+            allow_single_file = True,
+        ),
+        "_bin": attr.label(
+            default = "//third_party/controller-tools-v0.2.4/cmd/controller-gen",
+            executable = True,
+            cfg = "host",
+        ),
+    },
+)

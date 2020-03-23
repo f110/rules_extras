@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -e
-if [ "@@DEBUG@@" = true ]; then
+if [ "@@DEBUG@@" = "true" ]; then
 set -x
 fi
 
 BIN=@@BIN@@
+GENERATED_DIR=@@GENERATED_DIR@@
 OUTPUT_DIR=@@OUTPUT_DIR@@
 ARGS=@@ARGS@@
 
@@ -26,7 +27,7 @@ fi
 
 mkdir -p src/$MODULE
 for i in "${SRC_DIRS[@]}"; do
-  ln -sf $RUNFILE_DIR/$i src/$MODULE
+  ln -sf $RUNFILE_DIR/$i src/$MODULE/$i
 done
 
 unset GO111MODULE
@@ -34,5 +35,4 @@ export GOPATH=$RUNFILE_DIR
 "$CONTROLLER_GEN" "${ARGS[@]}"
 
 cd "$BUILD_WORKSPACE_DIRECTORY"
-rm -rf "$OUTPUT_DIR"
-cp -r $RUNFILE_DIR/crd "$OUTPUT_DIR"
+cp -rT $RUNFILE_DIR/$GENERATED_DIR "$OUTPUT_DIR"
