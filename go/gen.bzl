@@ -351,7 +351,7 @@ def _crd_gen_impl(ctx):
         debug = "true"
 
     substitutions = {
-        "@@DEBUG@@": shell.quote(debug),
+        "@@DEBUG@@": debug,
         "@@BIN@@": shell.quote(ctx.executable._bin.short_path),
         "@@GENERATED_DIR@@": shell.quote("crd"),
         "@@OUTPUT_DIR@@": shell.quote(ctx.attr.dir),
@@ -477,7 +477,7 @@ def _rbac_gen_impl(ctx):
         debug = "true"
 
     substitutions = {
-        "@@DEBUG@@": shell.quote(debug),
+        "@@DEBUG@@": debug,
         "@@BIN@@": shell.quote(ctx.executable._bin.short_path),
         "@@GENERATED_DIR@@": shell.quote("rbac"),
         "@@OUTPUT_DIR@@": shell.quote(ctx.attr.dir),
