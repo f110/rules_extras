@@ -34,7 +34,10 @@ for i in "${!SRC_PACKAGE_DIRS[@]}"; do
   ln -sf $RUNFILE_DIR/${SRC_DIRS[$i]} src/${SRC_PACKAGE_DIRS[$i]}
 done
 
-GOROOT=$RUNFILE_DIR/$GO_ROOT GOPATH=$RUNFILE_DIR "$GEN" "--output-base=$RUNFILE_DIR" "${ARGS[@]}"
+unset GO111MODULE
+export GOROOT=$RUNFILE_DIR/$GO_ROOT
+export GOPATH=$RUNFILE_DIR
+"$GEN" "--output-base=$RUNFILE_DIR" "${ARGS[@]}"
 
 cd "$BUILD_WORKSPACE_DIRECTORY"
 
