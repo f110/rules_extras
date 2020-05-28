@@ -48,7 +48,7 @@ if [ -n "$FILENAME" ]; then
   done
 else
   mkdir -p $(dirname "${TARGET_DIRS[0]}")
-  cp -rT $RUNFILE_DIR/${GENERATED_DIRS[0]} ${TARGET_DIRS[0]}
+  rsync -r $RUNFILE_DIR/${GENERATED_DIRS[0]}/ ${TARGET_DIRS[0]}/
 
   if [ "$NO_GAZELLE" = "false" ]; then
     "$GAZELLE" update "${TARGET_DIRS[0]}"
