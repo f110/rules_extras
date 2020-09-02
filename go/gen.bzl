@@ -13,7 +13,7 @@ _COMMON_ATTRS = {
     ),
     "no_gazelle": attr.bool(default = False),
     "debug": attr.bool(default = False),
-    "version": attr.string(default = "v0.18.8"),
+    "version": attr.string(default = "v0.17"),
     "_template": attr.label(
         default = "@dev_f110_rules_extras//go:code-generator.bash",
         allow_single_file = True,
