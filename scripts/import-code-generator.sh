@@ -2,13 +2,15 @@
 set -e
 
 NAME="code-generator"
-VERSION="v0.17.4"
+VERSION="v0.18.8"
 
-TARGETDIR="$(pwd)/third_party/${NAME}-${VERSION}"
+TOPDIR=$(cd $(dirname "${0}")/..; pwd)
+TARGETDIR="${TOPDIR}/third_party/${NAME}-${VERSION}"
 
 if [ -d "${TARGETDIR}" ]; then
   rm -rf "${TARGETDIR}"
 fi
+rm -rf $(dirname $TARGETDIR)/${NAME}-*
 
 TMPDIR=$(mktemp -d)
 cd "${TMPDIR}"
@@ -31,3 +33,4 @@ EOS
 
 mv "${TMPDIR}/${NAME}" "${TARGETDIR}"
 bazel run //third_party/${NAME}-${VERSION}:vendor
+git reset --hard
