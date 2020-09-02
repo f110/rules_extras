@@ -13,6 +13,7 @@ _COMMON_ATTRS = {
     ),
     "no_gazelle": attr.bool(default = False),
     "debug": attr.bool(default = False),
+    "version": attr.string(default = "v0.18"),
     "_template": attr.label(
         default = "@dev_f110_rules_extras//go:code-generator.bash",
         allow_single_file = True,
@@ -22,6 +23,14 @@ _COMMON_ATTRS = {
         executable = True,
         cfg = "host",
     ),
+}
+_BIN_LABEL = {
+    "deepcopy-gen": {
+        "v0.17": Label("//third_party/code-generator-v0.17.4/cmd/deepcopy-gen"),
+        "v0.17.4": Label("//third_party/code-generator-v0.17.4/cmd/deepcopy-gen"),
+        "v0.18": Label("//third_party/code-generator-v0.18.8/cmd/deepcopy-gen"),
+        "v0.18.8": Label("//third_party/code-generator-v0.18.8/cmd/deepcopy-gen"),
+    },
 }
 
 def _code_generator_impl(ctx, _bin, srcs, args, target_dirs = [], generated_dirs = [], filename = "", dep_runfiles = [], providers = []):
@@ -122,6 +131,9 @@ def _flatten_deps(go_srcs):
     return deps
 
 def _deepcopy_gen_impl(ctx):
+    if not "_deepcopy_gen_"+ctx.attr.version in ctx.executable:
+        fail("%s is not supported", ctx.attr.version)
+
     out = ctx.actions.declare_file(ctx.label.name + ".sh")
 
     go_srcs = ctx.attr.srcs
@@ -136,7 +148,7 @@ def _deepcopy_gen_impl(ctx):
 
     return _code_generator_impl(
         ctx,
-        ctx.executable._deepcopy_gen,
+        ctx.executable["_deepcopy_gen_"+ctx.attr.version],
         srcs,
         args,
         filename = ctx.attr.outputname + ".go",
@@ -153,8 +165,13 @@ _deepcopy_gen = go_rule(
         "outputname": attr.string(
             default = "zz_generated.deepcopy",
         ),
-        "_deepcopy_gen": attr.label(
+        "_deepcopy_gen_v0.17.4": attr.label(
             default = "//third_party/code-generator-v0.17.4/cmd/deepcopy-gen",
+            executable = True,
+            cfg = "host",
+        ),
+        "_deepcopy_gen_v0.18.8": attr.label(
+            default = "//third_party/code-generator-v0.18.8/cmd/deepcopy-gen",
             executable = True,
             cfg = "host",
         ),

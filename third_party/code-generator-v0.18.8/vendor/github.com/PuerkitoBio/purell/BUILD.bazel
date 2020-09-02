@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "purell",
+    srcs = ["purell.go"],
+    importmap = "k8s.io/code-generator/vendor/github.com/PuerkitoBio/purell",
+    importpath = "github.com/PuerkitoBio/purell",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//third_party/code-generator-v0.18.8/vendor/github.com/PuerkitoBio/urlesc",
+        "//third_party/code-generator-v0.18.8/vendor/golang.org/x/net/idna",
+        "//third_party/code-generator-v0.18.8/vendor/golang.org/x/text/unicode/norm",
+        "//third_party/code-generator-v0.18.8/vendor/golang.org/x/text/width",
+    ],
+)
