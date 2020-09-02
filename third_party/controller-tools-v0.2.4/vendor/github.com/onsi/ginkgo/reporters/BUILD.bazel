@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "reporters",
     srcs = [
         "default_reporter.go",
         "fake_reporter.go",
@@ -13,8 +13,8 @@ go_library(
     importpath = "github.com/onsi/ginkgo/reporters",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/config:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/reporters/stenographer:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/types:go_default_library",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/config",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/reporters/stenographer",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/types",
     ],
 )

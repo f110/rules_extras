@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "lapack",
     srcs = [
         "doc.go",
         "lapack.go",
@@ -9,5 +9,5 @@ go_library(
     importmap = "k8s.io/code-generator/vendor/gonum.org/v1/gonum/lapack",
     importpath = "gonum.org/v1/gonum/lapack",
     visibility = ["//visibility:public"],
-    deps = ["//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas:go_default_library"],
+    deps = ["//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas"],
 )

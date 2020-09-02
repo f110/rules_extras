@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "packagestest",
     srcs = [
         "expect.go",
         "export.go",
@@ -15,8 +15,8 @@ go_library(
     importpath = "golang.org/x/tools/go/packages/packagestest",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/controller-tools-v0.2.4/vendor/golang.org/x/tools/go/expect:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/golang.org/x/tools/go/packages:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/golang.org/x/tools/internal/span:go_default_library",
+        "//third_party/controller-tools-v0.2.4/vendor/golang.org/x/tools/go/expect",
+        "//third_party/controller-tools-v0.2.4/vendor/golang.org/x/tools/go/packages",
+        "//third_party/controller-tools-v0.2.4/vendor/golang.org/x/tools/internal/span",
     ],
 )

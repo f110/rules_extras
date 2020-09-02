@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "gonum",
     srcs = [
         "dgemm.go",
         "doc.go",
@@ -30,12 +30,12 @@ go_library(
     importpath = "gonum.org/v1/gonum/blas/gonum",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/c128:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/c64:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/f32:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/f64:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/cmplx64:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/math32:go_default_library",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/c128",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/c64",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/f32",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/asm/f64",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/cmplx64",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/math32",
     ],
 )

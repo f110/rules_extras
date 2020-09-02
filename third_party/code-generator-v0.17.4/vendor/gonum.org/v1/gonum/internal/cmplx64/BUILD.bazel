@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "cmplx64",
     srcs = [
         "abs.go",
         "conj.go",
@@ -13,5 +13,5 @@ go_library(
     importmap = "k8s.io/code-generator/vendor/gonum.org/v1/gonum/internal/cmplx64",
     importpath = "gonum.org/v1/gonum/internal/cmplx64",
     visibility = ["//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum:__subpackages__"],
-    deps = ["//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/math32:go_default_library"],
+    deps = ["//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/internal/math32"],
 )

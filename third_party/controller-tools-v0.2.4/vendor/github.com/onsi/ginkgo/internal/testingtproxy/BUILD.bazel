@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "testingtproxy",
     srcs = ["testing_t_proxy.go"],
     importmap = "sigs.k8s.io/controller-tools/vendor/github.com/onsi/ginkgo/internal/testingtproxy",
     importpath = "github.com/onsi/ginkgo/internal/testingtproxy",

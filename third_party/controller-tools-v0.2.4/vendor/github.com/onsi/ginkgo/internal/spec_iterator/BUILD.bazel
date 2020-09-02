@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "spec_iterator",
     srcs = [
         "index_computer.go",
         "parallel_spec_iterator.go",
@@ -12,5 +12,5 @@ go_library(
     importmap = "sigs.k8s.io/controller-tools/vendor/github.com/onsi/ginkgo/internal/spec_iterator",
     importpath = "github.com/onsi/ginkgo/internal/spec_iterator",
     visibility = ["//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo:__subpackages__"],
-    deps = ["//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/internal/spec:go_default_library"],
+    deps = ["//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/internal/spec"],
 )

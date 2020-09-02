@@ -40,3 +40,10 @@ def vendor_grpc_source(name, **kwargs):
         kwargs["dir"] = dir
 
     _vendor_grpc_source(name = name, **kwargs)
+
+def vendor_proto_source(name, **kwargs):
+    if not "dir" in kwargs:
+        dir = native.package_name()
+        kwargs["dir"] = dir
+
+    _vendor_grpc_source(name = name, **kwargs)

@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "help",
     srcs = [
         "doc.go",
         "sort.go",
@@ -9,5 +9,5 @@ go_library(
     ],
     importpath = "sigs.k8s.io/controller-tools/pkg/genall/help",
     visibility = ["//visibility:public"],
-    deps = ["//third_party/controller-tools-v0.2.4/pkg/markers:go_default_library"],
+    deps = ["//third_party/controller-tools-v0.2.4/pkg/markers"],
 )

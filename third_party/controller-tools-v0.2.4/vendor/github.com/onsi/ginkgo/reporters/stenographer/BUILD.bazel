@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "stenographer",
     srcs = [
         "console_logging.go",
         "fake_stenographer.go",
@@ -10,5 +10,5 @@ go_library(
     importmap = "sigs.k8s.io/controller-tools/vendor/github.com/onsi/ginkgo/reporters/stenographer",
     importpath = "github.com/onsi/ginkgo/reporters/stenographer",
     visibility = ["//visibility:public"],
-    deps = ["//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/types:go_default_library"],
+    deps = ["//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/types"],
 )

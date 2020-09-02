@@ -1,27 +1,27 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "controller-gen_lib",
     srcs = ["main.go"],
     importpath = "sigs.k8s.io/controller-tools/cmd/controller-gen",
     visibility = ["//visibility:private"],
     deps = [
-        "//third_party/controller-tools-v0.2.4/pkg/crd:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/deepcopy:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/genall:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/genall/help:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/genall/help/pretty:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/markers:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/rbac:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/schemapatcher:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/version:go_default_library",
-        "//third_party/controller-tools-v0.2.4/pkg/webhook:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/spf13/cobra:go_default_library",
+        "//third_party/controller-tools-v0.2.4/pkg/crd",
+        "//third_party/controller-tools-v0.2.4/pkg/deepcopy",
+        "//third_party/controller-tools-v0.2.4/pkg/genall",
+        "//third_party/controller-tools-v0.2.4/pkg/genall/help",
+        "//third_party/controller-tools-v0.2.4/pkg/genall/help/pretty",
+        "//third_party/controller-tools-v0.2.4/pkg/markers",
+        "//third_party/controller-tools-v0.2.4/pkg/rbac",
+        "//third_party/controller-tools-v0.2.4/pkg/schemapatcher",
+        "//third_party/controller-tools-v0.2.4/pkg/version",
+        "//third_party/controller-tools-v0.2.4/pkg/webhook",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/spf13/cobra",
     ],
 )
 
 go_binary(
     name = "controller-gen",
-    embed = [":go_default_library"],
+    embed = [":controller-gen_lib"],
     visibility = ["//visibility:public"],
 )

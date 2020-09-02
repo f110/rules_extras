@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "spec",
     srcs = [
         "bindata.go",
         "cache.go",
@@ -34,8 +34,8 @@ go_library(
     importpath = "github.com/go-openapi/spec",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/code-generator-v0.17.4/vendor/github.com/go-openapi/jsonpointer:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/github.com/go-openapi/jsonreference:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/github.com/go-openapi/swag:go_default_library",
+        "//third_party/code-generator-v0.17.4/vendor/github.com/go-openapi/jsonpointer",
+        "//third_party/code-generator-v0.17.4/vendor/github.com/go-openapi/jsonreference",
+        "//third_party/code-generator-v0.17.4/vendor/github.com/go-openapi/swag",
     ],
 )

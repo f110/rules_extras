@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "go-colorable",
     srcs = [
         "colorable_others.go",
         "colorable_windows.go",
@@ -12,7 +12,7 @@ go_library(
     visibility = ["//visibility:public"],
     deps = select({
         "@io_bazel_rules_go//go/platform:windows": [
-            "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/reporters/stenographer/support/go-isatty:go_default_library",
+            "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/reporters/stenographer/support/go-isatty",
         ],
         "//conditions:default": [],
     }),

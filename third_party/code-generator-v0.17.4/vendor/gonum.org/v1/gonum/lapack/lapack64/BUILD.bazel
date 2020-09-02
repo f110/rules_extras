@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "lapack64",
     srcs = [
         "doc.go",
         "lapack64.go",
@@ -10,9 +10,9 @@ go_library(
     importpath = "gonum.org/v1/gonum/lapack/lapack64",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas/blas64:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/lapack:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/lapack/gonum:go_default_library",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas/blas64",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/lapack",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/lapack/gonum",
     ],
 )

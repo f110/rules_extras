@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "yaml",
     srcs = [
         "convert.go",
         "nested.go",
@@ -9,5 +9,5 @@ go_library(
     ],
     importpath = "sigs.k8s.io/controller-tools/pkg/schemapatcher/internal/yaml",
     visibility = ["//third_party/controller-tools-v0.2.4/pkg/schemapatcher:__subpackages__"],
-    deps = ["//third_party/controller-tools-v0.2.4/vendor/gopkg.in/yaml.v3:go_default_library"],
+    deps = ["//third_party/controller-tools-v0.2.4/vendor/gopkg.in/yaml.v3"],
 )

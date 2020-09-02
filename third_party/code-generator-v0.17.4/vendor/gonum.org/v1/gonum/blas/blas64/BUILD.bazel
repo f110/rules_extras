@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "blas64",
     srcs = [
         "blas64.go",
         "conv.go",
@@ -12,7 +12,7 @@ go_library(
     importpath = "gonum.org/v1/gonum/blas/blas64",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas/gonum:go_default_library",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/blas/gonum",
     ],
 )

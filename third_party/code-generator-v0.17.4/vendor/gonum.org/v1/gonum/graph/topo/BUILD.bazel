@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "topo",
     srcs = [
         "bron_kerbosch.go",
         "clique_graph.go",
@@ -16,11 +16,11 @@ go_library(
     importpath = "gonum.org/v1/gonum/graph/topo",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/internal/linear:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/internal/ordered:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/internal/set:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/iterator:go_default_library",
-        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/traverse:go_default_library",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/internal/linear",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/internal/ordered",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/internal/set",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/iterator",
+        "//third_party/code-generator-v0.17.4/vendor/gonum.org/v1/gonum/graph/traverse",
     ],
 )

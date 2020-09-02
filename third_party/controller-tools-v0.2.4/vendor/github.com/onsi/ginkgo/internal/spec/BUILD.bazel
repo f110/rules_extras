@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "spec",
     srcs = [
         "spec.go",
         "specs.go",
@@ -10,8 +10,8 @@ go_library(
     importpath = "github.com/onsi/ginkgo/internal/spec",
     visibility = ["//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo:__subpackages__"],
     deps = [
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/internal/containernode:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/internal/leafnodes:go_default_library",
-        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/types:go_default_library",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/internal/containernode",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/internal/leafnodes",
+        "//third_party/controller-tools-v0.2.4/vendor/github.com/onsi/ginkgo/types",
     ],
 )
