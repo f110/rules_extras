@@ -2,7 +2,7 @@
 set -e
 
 NAME="code-generator"
-VERSION="v0.18.8"
+VERSION="v0.19.0"
 
 TOPDIR=$(cd $(dirname "${0}")/..; pwd)
 TARGETDIR="${TOPDIR}/third_party/${NAME}-${VERSION}"
@@ -10,19 +10,28 @@ TARGETDIR="${TOPDIR}/third_party/${NAME}-${VERSION}"
 if [ -d "${TARGETDIR}" ]; then
   rm -rf "${TARGETDIR}"
 fi
-rm -rf $(dirname $TARGETDIR)/${NAME}-*
 
 TMPDIR=$(mktemp -d)
-cd "${TMPDIR}"
-echo "Clone: https://github.com/kubernetes/${NAME}.git"
-git clone --quiet --depth 1 --branch "$VERSION" "https://github.com/kubernetes/${NAME}.git"
+echo "Create temporary directory ${TMPDIR}"
+mkdir -p "${TMPDIR}"/third_party/${NAME}-${VERSION}
+cp -r ${TOPDIR}/WORKSPACE ${TOPDIR}/go ${TMPDIR}
+cat <<EOS > ${TMPDIR}/BUILD.bazel
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
-find "${NAME}" -name "*_test.go" -delete
-find "${NAME}" -name "testdata" -type d | xargs rm -rf
-find "${NAME}" -name "_examples" -type d | xargs rm -rf
-cd "${NAME}"
+gazelle(name = "gazelle")
+EOS
 
+echo "Clone: https://github.com/kubernetes/${NAME}.git into $(pwd)"
+cd "${TMPDIR}/third_party"
+git clone --quiet --depth 1 --branch "$VERSION" "https://github.com/kubernetes/${NAME}.git" "${NAME}-${VERSION}"
+
+echo "Remove unnecessary files"
+cd "${NAME}-${VERSION}"
+find . -name "*_test.go" -delete
+find . -name "testdata" -type d | xargs rm -rf
+find . -name "_examples" -type d | xargs rm -rf
 find . -name ".*" -maxdepth 1 | grep -v "^.$" | xargs rm -rf {} +
+
 cat <<EOS > BUILD.bazel
 load("//go:vendor.bzl", "go_vendor")
 
@@ -31,6 +40,6 @@ load("//go:vendor.bzl", "go_vendor")
 go_vendor(name = "vendor")
 EOS
 
-mv "${TMPDIR}/${NAME}" "${TARGETDIR}"
 bazel run //third_party/${NAME}-${VERSION}:vendor
-git reset --hard
+bazel clean --expunge
+mv "${TMPDIR}/third_party/${NAME}-${VERSION}" "${TARGETDIR}"
