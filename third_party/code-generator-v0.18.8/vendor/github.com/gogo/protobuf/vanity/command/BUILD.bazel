@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "command",
+    srcs = ["command.go"],
+    importmap = "k8s.io/code-generator/vendor/github.com/gogo/protobuf/vanity/command",
+    importpath = "github.com/gogo/protobuf/vanity/command",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/compare",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/defaultcheck",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/description",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/embedcheck",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/enumstringer",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/equal",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/face",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/gostring",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/marshalto",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/oneofcheck",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/populate",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/size",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/stringer",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/testgen",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/union",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/plugin/unmarshal",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/proto",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/protoc-gen-gogo/generator",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/protoc-gen-gogo/grpc",
+        "//third_party/code-generator-v0.18.8/vendor/github.com/gogo/protobuf/protoc-gen-gogo/plugin",
+    ],
+)

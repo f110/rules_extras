@@ -13,6 +13,7 @@ _COMMON_ATTRS = {
     ),
     "no_gazelle": attr.bool(default = False),
     "debug": attr.bool(default = False),
+    "version": attr.string(default = "v0.17"),
     "_template": attr.label(
         default = "@dev_f110_rules_extras//go:code-generator.bash",
         allow_single_file = True,
@@ -22,6 +23,10 @@ _COMMON_ATTRS = {
         executable = True,
         cfg = "host",
     ),
+}
+_DEFAULT_K8S_PATCH_VERSION = {
+    "v0.17": "v0.17.4",
+    "v0.18": "v0.18.8",
 }
 
 def _code_generator_impl(ctx, _bin, srcs, args, target_dirs = [], generated_dirs = [], filename = "", dep_runfiles = [], providers = []):
@@ -122,6 +127,14 @@ def _flatten_deps(go_srcs):
     return deps
 
 def _deepcopy_gen_impl(ctx):
+    k8s_version = ""
+    if ctx.attr.version in _DEFAULT_K8S_PATCH_VERSION:
+        k8s_version = _DEFAULT_K8S_PATCH_VERSION[ctx.attr.version].replace(".", "_")
+    elif hasattr(ctx.executable, "_deepcopy_gen_"+ctx.attr.version.replace(".", "_")):
+        k8s_version = ctx.attr.version.replace(".", "_")
+    else:
+        fail("%s is not supported" % ctx.attr.version)
+
     out = ctx.actions.declare_file(ctx.label.name + ".sh")
 
     go_srcs = ctx.attr.srcs
@@ -136,7 +149,7 @@ def _deepcopy_gen_impl(ctx):
 
     return _code_generator_impl(
         ctx,
-        ctx.executable._deepcopy_gen,
+        getattr(ctx.executable, "_deepcopy_gen_"+k8s_version),
         srcs,
         args,
         filename = ctx.attr.outputname + ".go",
@@ -153,8 +166,13 @@ _deepcopy_gen = go_rule(
         "outputname": attr.string(
             default = "zz_generated.deepcopy",
         ),
-        "_deepcopy_gen": attr.label(
+        "_deepcopy_gen_v0_17_4": attr.label(
             default = "//third_party/code-generator-v0.17.4/cmd/deepcopy-gen",
+            executable = True,
+            cfg = "host",
+        ),
+        "_deepcopy_gen_v0_18_8": attr.label(
+            default = "//third_party/code-generator-v0.18.8/cmd/deepcopy-gen",
             executable = True,
             cfg = "host",
         ),
@@ -162,7 +180,13 @@ _deepcopy_gen = go_rule(
 )
 
 def _client_gen_impl(ctx):
-    go = go_context(ctx)
+    k8s_version = ""
+    if ctx.attr.version in _DEFAULT_K8S_PATCH_VERSION:
+        k8s_version = _DEFAULT_K8S_PATCH_VERSION[ctx.attr.version].replace(".", "_")
+    elif hasattr(ctx.executable, "_client_gen_"+ctx.attr.version.replace(".", "_")):
+        k8s_version = ctx.attr.version.replace(".", "_")
+    else:
+        fail("%s is not supported" % ctx.attr.version)
 
     go_srcs = ctx.attr.srcs
     srcs, providers = _extract_src_and_providers(go_srcs)
@@ -189,7 +213,7 @@ def _client_gen_impl(ctx):
 
     return _code_generator_impl(
         ctx,
-        ctx.executable._client_gen,
+        getattr(ctx.executable, "_client_gen_"+k8s_version),
         srcs,
         args,
         target_dirs = [target_dir],
@@ -206,8 +230,13 @@ _client_gen = go_rule(
             default = _DEFAULT_CLIENTSET_NAME,
         ),
         "clientpackage": attr.string(),
-        "_client_gen": attr.label(
+        "_client_gen_v0_17_4": attr.label(
             default = "//third_party/code-generator-v0.17.4/cmd/client-gen",
+            executable = True,
+            cfg = "host",
+        ),
+        "_client_gen_v0_18_8": attr.label(
+            default = "//third_party/code-generator-v0.18.8/cmd/client-gen",
             executable = True,
             cfg = "host",
         ),
@@ -215,7 +244,13 @@ _client_gen = go_rule(
 )
 
 def _lister_gen_impl(ctx):
-    go = go_context(ctx)
+    k8s_version = ""
+    if ctx.attr.version in _DEFAULT_K8S_PATCH_VERSION:
+        k8s_version = _DEFAULT_K8S_PATCH_VERSION[ctx.attr.version].replace(".", "_")
+    elif hasattr(ctx.executable, "_lister_gen_"+ctx.attr.version.replace(".", "_")):
+        k8s_version = ctx.attr.version.replace(".", "_")
+    else:
+        fail("%s is not supported" % ctx.attr.version)
 
     go_srcs = ctx.attr.srcs
     srcs, providers = _extract_src_and_providers(go_srcs)
@@ -239,7 +274,7 @@ def _lister_gen_impl(ctx):
 
     return _code_generator_impl(
         ctx,
-        ctx.executable._lister_gen,
+        getattr(ctx.executable, "_lister_gen_"+k8s_version),
         srcs,
         args,
         target_dirs = [target_dir],
@@ -253,8 +288,13 @@ _lister_gen = go_rule(
     executable = True,
     attrs = dict({
         "listerpackage": attr.string(),
-        "_lister_gen": attr.label(
+        "_lister_gen_v0_17_4": attr.label(
             default = "//third_party/code-generator-v0.17.4/cmd/lister-gen",
+            executable = True,
+            cfg = "host",
+        ),
+        "_lister_gen_v0_18_8": attr.label(
+            default = "//third_party/code-generator-v0.18.8/cmd/lister-gen",
             executable = True,
             cfg = "host",
         ),
@@ -262,7 +302,13 @@ _lister_gen = go_rule(
 )
 
 def _informer_gen_impl(ctx):
-    go = go_context(ctx)
+    k8s_version = ""
+    if ctx.attr.version in _DEFAULT_K8S_PATCH_VERSION:
+        k8s_version = _DEFAULT_K8S_PATCH_VERSION[ctx.attr.version].replace(".", "_")
+    elif hasattr(ctx.executable, "_informer_gen_"+ctx.attr.version.replace(".", "_")):
+        k8s_version = ctx.attr.version.replace(".", "_")
+    else:
+        fail("%s is not supported" % ctx.attr.version)
 
     go_srcs = ctx.attr.srcs
     srcs, providers = _extract_src_and_providers(go_srcs)
@@ -288,7 +334,7 @@ def _informer_gen_impl(ctx):
 
     return _code_generator_impl(
         ctx,
-        ctx.executable._informer_gen,
+        getattr(ctx.executable, "_informer_gen_"+k8s_version),
         srcs,
         args,
         target_dirs = [target_dir],
@@ -305,8 +351,13 @@ _informer_gen = go_rule(
         "clientpackage": attr.string(),
         "clientsetname": attr.string(default = _DEFAULT_CLIENTSET_NAME),
         "listerpackage": attr.string(),
-        "_informer_gen": attr.label(
+        "_informer_gen_v0_17_4": attr.label(
             default = "//third_party/code-generator-v0.17.4/cmd/informer-gen",
+            executable = True,
+            cfg = "host",
+        ),
+        "_informer_gen_v0_18_8": attr.label(
+            default = "//third_party/code-generator-v0.18.8/cmd/informer-gen",
             executable = True,
             cfg = "host",
         ),
