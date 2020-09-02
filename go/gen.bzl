@@ -131,7 +131,7 @@ def _flatten_deps(go_srcs):
     return deps
 
 def _deepcopy_gen_impl(ctx):
-    if not "_deepcopy_gen_"+ctx.attr.version in ctx.executable:
+    if not "_deepcopy_gen_"+ctx.attr.version.replace(".", "_") in ctx.executable:
         fail("%s is not supported", ctx.attr.version)
 
     out = ctx.actions.declare_file(ctx.label.name + ".sh")
@@ -148,7 +148,7 @@ def _deepcopy_gen_impl(ctx):
 
     return _code_generator_impl(
         ctx,
-        ctx.executable["_deepcopy_gen_"+ctx.attr.version],
+        ctx.executable["_deepcopy_gen_"+ctx.attr.version.replace(".", "_")],
         srcs,
         args,
         filename = ctx.attr.outputname + ".go",
@@ -165,12 +165,12 @@ _deepcopy_gen = go_rule(
         "outputname": attr.string(
             default = "zz_generated.deepcopy",
         ),
-        "_deepcopy_gen_v0.17.4": attr.label(
+        "_deepcopy_gen_v0_17_4": attr.label(
             default = "//third_party/code-generator-v0.17.4/cmd/deepcopy-gen",
             executable = True,
             cfg = "host",
         ),
-        "_deepcopy_gen_v0.18.8": attr.label(
+        "_deepcopy_gen_v0_18_8": attr.label(
             default = "//third_party/code-generator-v0.18.8/cmd/deepcopy-gen",
             executable = True,
             cfg = "host",
