@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "hello_lib",
+    srcs = ["main.go"],
+    importpath = "go.f110.dev/rules_extras/example/cmd/hello",
+    visibility = ["//visibility:private"],
+    deps = ["//example/vendor/golang.org/x/xerrors"],
+)
+
+go_binary(
+    name = "hello",
+    embed = [":hello_lib"],
+    visibility = ["//visibility:public"],
+)
