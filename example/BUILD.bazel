@@ -2,4 +2,7 @@ load("//go:vendor.bzl", "go_vendor")
 
 go_vendor(
     name = "vendor",
+    patches = [
+        "patches/example.patch",
+    ],
 )

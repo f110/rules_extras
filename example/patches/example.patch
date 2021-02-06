@@ -1,0 +1,10 @@
+diff --git a/vendor/golang.org/x/xerrors/README b/vendor/golang.org/x/xerrors/README
+index aac7867..e9539ab 100644
+--- a/vendor/golang.org/x/xerrors/README
++++ b/vendor/golang.org/x/xerrors/README
+@@ -1,2 +1,4 @@
+ This repository holds the transition packages for the new Go 1.13 error values.
+ See golang.org/design/29934-error-values.
++
++// Patch
+\ No newline at end of file
